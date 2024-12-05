@@ -1,3 +1,4 @@
+
 function Rating({ rating }) {
   const stars = [];
   for (let i = 0; i < rating; i++) {

@@ -7,7 +7,7 @@ const Comment = ({ comment,index }) => {
       <div className="review">
         <div className="well well-sm review-header ">
           <span className="rating">
-            <Rating puan={comment.rating} />
+            <Rating rating={comment.rating} />
           </span>
           &nbsp;
           <span className="review-author">{comment.author}</span>

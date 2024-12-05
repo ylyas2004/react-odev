@@ -1,72 +1,50 @@
+import React, { useEffect, useState } from "react";
 import InputWithLabel from "./InputWithLabel";
 import VenueList from "./VenueList";
 import Header from "./Header";
-import React, { useEffect, useState } from "react";
+import server_url from '../services/config';
 
 const Home = () => {
   const [searchText, setSearchText] = useState("");
+  const [venues, setVenues] = useState([]);
+  const [dynVenues, setDynVenues] = useState([]);
 
-  function handleSearch(event) {
+  // Fetch venues from the backend when the component mounts
+  useEffect(() => {
+    const fetchVenues = async () => {
+      try {
+        const response = await fetch(`${server_url}/api/venues`);
+        const data = await response.json();
+        setVenues(data);  // Set venues from the API
+        setDynVenues(data);  // Initially, set dynVenues to all venues
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching venues:", error);
+      }
+    };
+
+    fetchVenues();
+  }, []);
+
+  // Handle search input and filter venues based on name
+  const handleSearch = (event) => {
     const value = event.target.value;
-    
     setSearchText(value);
 
     setDynVenues(
       venues.filter((venue) =>
-        venue.name.toLowerCase().includes(searchText.toLowerCase())
+        venue.name.toLowerCase().includes(value.toLowerCase())
       )
     );
-  }
+  };
 
-  //Şimdilik veri statik. Backend bitince Rest API'den gelecek.
-  const venues = [
-    // {
-    //   _id: 1,
-    //   name: "Bilgisayar Mühendisliği",
-    //   rating: 5,
-    //   distance: 1,
-    //   address: "SDÜ",
-    //   foodanddrink: ["Web", "Yazılım", "ASY"],
-    // },
-    {
-      _id: 1,
-      name: "Bilgisayar Mühendisliği",
-      rating: 5,
-      distance: 1,
-      address: "SDÜ",
-      foodanddrink: ["Web", "Yazılım", "ASY"],
-      hours:[{days:"Pazartesi-Cuma",open:"9:30",close:"17:00"}],
-      coordinates:[37.82983938808944, 30.52514779841139],
-      comments:[{rating:5,author:"Sinan",text:"Süper bir yer"}]
-    },
-    // {
-    //   _id: 2,
-    //   name: "Cam Kafe",
-    //   rating: 1,
-    //   distance: 11,
-    //   address: "SDÜ",
-    //   foodanddrink: ["Doner", "Tost", "Pizza"],
-    // },
-    {
-      _id: 2,
-      name: "Cam Kafe",
-      rating: 3,
-      distance: 10,
-      address: "SDÜ",
-      foodanddrink: ["Pizza", "Burger", "Toast"],
-      hours:[{days:"Pazartesi-Cuma",open:"11:30",close:"12:00"}],
-      coordinates:[37.829545, 30.524648],
-      comments:[{rating:3,author:"Ylyas",text:"Not bad"}]
-    }
-  ];
-  const [dynVenues, setDynVenues] = useState(venues);
-
-  useEffect(() =>
-  {
-    if (searchText.length == 0){
+  // Reset dynVenues if search text is cleared
+  useEffect(() => {
+    if (searchText.length === 0) {
       setDynVenues(venues);
     }
-  }, [searchText])
+  }, [searchText, venues]);
+
   return (
     <div>
       <Header

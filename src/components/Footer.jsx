@@ -17,7 +17,7 @@ const Footer = () => {
         {/* Contact Section */}
         <div className="footer-section">
           <h4 className="footer-heading">Contact and details</h4>
-          <p className="footer-text">Email: ls2211012829@ogr.sdu.edu.tr</p>
+          <p className="footer-text">Email: l2211012829@ogr.sdu.edu.tr</p>
           <p className="footer-text">Phone: +90 123 456 7890</p>
           <p className="footer-text">Student No: 2211012829</p>
         </div>

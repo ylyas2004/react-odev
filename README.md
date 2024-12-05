@@ -1,6 +1,6 @@
 # Mekabul React Front-End
 
-Vercel linki: [https://mekanbul-steel.vercel.app/](https://mekanbul-steel.vercel.app/)
+Vercel linki: [https://react-odev-alpha.vercel.app/](https://react-odev-alpha.vercel.app/)
 
 Localhost linki: [http://localhost:5173/](http://localhost:5173/)
 
